@@ -415,6 +415,7 @@ body::after {
     width: 100%;
     height: 100%;
     z-index: 1;
+    touch-action: none;
 }
 
 .content-overlay {
@@ -498,7 +499,14 @@ h1 {
     #settings-panel {
         width: calc(100% - 40px);
         left: 20px;
+        top: 90px;
+        max-height: calc(100vh - 120px);
+        overflow-y: auto;
         padding: 20px;
+        scrollbar-width: none; /* Firefox */
+    }
+    #settings-panel::-webkit-scrollbar {
+        display: none; /* Chrome/Safari */
     }
     #settings-hint {
         display: none;

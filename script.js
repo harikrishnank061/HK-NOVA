@@ -87,6 +87,34 @@ window.addEventListener('mousemove', (e) => {
     phantomMouse.active = false;
 });
 
+// Mobile Touch Support
+window.addEventListener('touchmove', (e) => {
+    if (e.touches.length > 0) {
+        mouse.x = e.touches[0].clientX;
+        mouse.y = e.touches[0].clientY;
+        phantomMouse.active = false;
+    }
+}, { passive: false });
+
+window.addEventListener('touchstart', (e) => {
+    if (e.touches.length > 0) {
+        mouse.x = e.touches[0].clientX;
+        mouse.y = e.touches[0].clientY;
+        phantomMouse.active = false;
+        
+        // Handle particle generation on tap
+        if (!e.target.closest('#settings-panel') && !e.target.closest('#menu-toggle')) {
+            for (let i = 0; i < 8; i++) {
+                particles.push(new Particle(mouse.x, mouse.y));
+            }
+            if (contentOverlay && contentOverlay.classList.contains('visible')) {
+                contentOverlay.classList.remove('visible');
+                contentOverlay.classList.add('hidden');
+            }
+        }
+    }
+}, { passive: false });
+
 const contentOverlay = document.querySelector('.content-overlay');
 
 window.addEventListener('mousedown', (e) => {
